@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
 		printf("<body> <var> -lambda -- make a lambda binding free <var> in <body>\n");
 		printf("<fun> <arg> -apply -- make an apply term with terms at top of stack\n");
 		printf("<expr1> <expr2> -alpheq -- push \\x.\\y.x (true) or \\x.\\y.y (false) if <expr1> and <expr2> are alpha equivalent\n");
+		printf("-print -- print expression stack\n");
 		return 0;
 	}
 	struct termnode *term_top = NULL;
@@ -178,6 +179,11 @@ int main(int argc, char *argv[])
 			}
 			destroy_term(t1_term);
 			destroy_term(t2_term);
+		} else if(strcmp(argv[i], "-print") == 0) {
+			for(struct termnode *n = term_top; n; n = n->next) {
+				term_print(stdout, n->t);
+				fprintf(stdout, "\n");
+			}
 		} else {
 			FILE *stream = fmemopen(argv[i], strlen(argv[i]), "r");
 			if(! stream)
@@ -205,8 +211,6 @@ int main(int argc, char *argv[])
 	struct term *t;
 	while(NULL != (t = termstack_get(term_top, 0))) {
 		termstack_pop(&term_top);
-		term_print(stdout, t);
-		fprintf(stdout, "\n");
 		destroy_term(t);
 	}
 	return 0;
