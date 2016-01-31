@@ -1,0 +1,56 @@
+lamtoy: a CLI tool to fool around with lambda expressions
+
+This is largely a work in progress to see how it can become useful.
+
+Run the 'lam' program without any arguments to see how to use it:
+usage: ./lam <cmds> ...
+<cmds> is one of:
+<expr> -- push <expr> onto stack
+<expr> <name> -alpha -- replace <expr> with alpha rename of <expr>
+<expr> -beta -- replace <expr> with beta reduce of <expr>
+<expr> -eta -- replace <expr> with eta convert of <expr>
+<body> <var> -lambda -- replace <body> with lambda binding free <var> in <body>
+<fun> <arg> -apply -- replace <fun> with (<fun> <arg>)
+<expr1> <expr2> -alpheq -- push \x.\y.x (true) or \x.\y.y (false) if <expr1> and <expr2> are alpha equivalent
+-body -- move implicit cursor into body of lambda
+-fun -- move implicit cursor into func of apply
+-arg -- move implicit cursor into arg of apply
+-up -- move implicit cursor up one level
+-top -- move implicit cursor to top level
+<expr1> <expr2> -swap -- swap <expr1> and <expr2>
+<expr> -dup -- duplicate <expr>
+<expr1> <expr2> -repl -- replace <expr1> with <expr2> and remove <expr2>
+-print -- print expression stack
+
+Expression syntax: (Slightly modified to make parsing easier)
+
+    <term> := <lambda> | <apply> | <var>
+    <lambda> := '\' <var> '.' <term>
+    <apply> := '(' <term> <term> ')'
+    <var> := [string up to 8 characters]
+
+Some examples:
+
+Y I:
+	$ ./lam '\f.( \x.(f (x x)) \x.(f (x x)) )' '\y.y' \
+	> -apply -repl -repl -print \
+	> -beta -repl -print \
+	> -beta -repl -print \
+	> -beta -repl
+	(\f.(\x.(f (x x)) \x.(f (x x))) \y.y)
+	(\x.(\y.y (x x)) \x.(\y.y (x x)))
+	(\y.y (\x.(\y.y (x x)) \x.(\y.y (x x))))
+	(\x.(\y.y (x x)) \x.(\y.y (x x)))
+
+not true:
+	$ ./lam '\p.\a.\b.((p b) a)' '\a.\b.a' \
+	> -apply -repl -repl -print \
+	> -beta -repl -print \
+	> -body -body -fun -fun -body x -alpha -repl -repl -top -print \
+	> -body -body -fun -beta -repl -top -print \
+	> -body -body -beta -repl -top -print
+	(\p.\a.\b.((p b) a) \a.\b.a)
+	\a.\b.((\a.\b.a b) a)
+	\a.\b.((\a.\x.a b) a)
+	\a.\b.(\x.b a)
+	\a.\b.b
