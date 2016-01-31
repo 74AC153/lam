@@ -328,8 +328,6 @@ int main(int argc, char *argv[])
 
 	struct term *t;
 	while(NULL != (t = termstack_get(term_top, 0))) {
-		term_print(stdout, t);
-		fprintf(stdout, "\n");
 		destroy_term(termstack_pop(&term_top));
 	}
 
