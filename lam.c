@@ -239,7 +239,7 @@ int main(int argc, char *argv[])
 			}
 		} else if(strcmp(argv[i], "-print") == 0) {
 			for(struct termnode *n = term_top; n; n = n->next) {
-				term_print(stdout, n->t);
+				term_print(stdout, termtrace_current(n->trace));
 				fprintf(stdout, "\n");
 			}
 		} else if(strcmp(argv[i], "-body") == 0) {
