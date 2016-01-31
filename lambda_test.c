@@ -245,6 +245,7 @@ void test_subs_free(void)
 		{ .input = "\\y.\\z.(z x))", .varname="x", .subs="p", .expect="\\y.\\z.(z p)" },
 		{ .input = "\\y.(x y)", .varname="x", .subs="z", .expect="\\y.(z y)" },
 		{ .input = "\\x.x", .varname="x", .subs="z", .expect="\\x.x" },
+		{ .input = "\\x.x", .varname="x", .subs="(x y)", .expect="" },
 	};
 
 	unsigned start = 0;
