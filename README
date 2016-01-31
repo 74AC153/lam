@@ -4,7 +4,6 @@ This is largely a work in progress to see how it can become useful.
 
 Run the 'lam' program without any arguments to see how to use it:
 usage: ./lam <cmds> ...
-usage: ./lam <cmds> ...
 <cmds> is one of:
 <expr> -- push <expr> onto stack
 <expr> <name> -alpha -- push alpha rename of <expr> using <name>
