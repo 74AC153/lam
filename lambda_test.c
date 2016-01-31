@@ -268,7 +268,7 @@ void test_subs_free(void)
 		fclose(outstream);
 
 		if(strcmp(tvecs[i].expect, outbuf) != 0) {
-			printf("FAIL: %s [%s := %s] -> %s (expect %s)\n",
+			printf("%s FAIL %u: %s [%s := %s] -> %s (expect %s)\n", __func__, i,
 			       tvecs[i].input,
 			       tvecs[i].varname,
 			       tvecs[i].subs,
@@ -318,7 +318,7 @@ void test_alpha_rename(void)
 		fclose(outstream);
 
 		if(strcmp(tvecs[i].expect, outbuf) != 0) {
-			printf("FAIL: %s [alpha %s] -> %s (expect %s)\n",
+			printf("%s FAIL %u: %s [alpha %s] -> %s (expect %s)\n", __func__, i,
 			       tvecs[i].input,
 			       tvecs[i].subs,
 			       outbuf,
