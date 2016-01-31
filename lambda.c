@@ -316,7 +316,12 @@ static struct term *_rec_subs_free(
 {
 	struct term *ret = NULL;
 	if(t->type == TYPE_LAMBDA) {
-		if(strncmp(t->lambda.var, var, VAR_LEN) == 0) {
+		if(var_is_free(subs, t->var)) {
+			// stop substitution if anything in 'subs' is captured by lambda
+			// need to do alpha rename on this lambda before we can substitute
+			// i.e. need to do a capture-avoiding substitution
+			ret = NULL;
+		} else if(strncmp(t->lambda.var, var, VAR_LEN) == 0) {
 			// stop substitution if 'var' becomes bound
 			ret = term_duplicate(t);
 		} else {
