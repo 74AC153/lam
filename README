@@ -4,19 +4,20 @@ This is largely a work in progress to see how it can become useful.
 
 Run the 'lam' program without any arguments to see how to use it:
 usage: ./lam <cmds> ...
+usage: ./lam <cmds> ...
 <cmds> is one of:
 <expr> -- push <expr> onto stack
-<expr> <name> -alpha -- replace <expr> with alpha rename of <expr>
-<expr> -beta -- replace <expr> with beta reduce of <expr>
-<expr> -eta -- replace <expr> with eta convert of <expr>
-<body> <var> -lambda -- replace <body> with lambda binding free <var> in <body>
-<fun> <arg> -apply -- replace <fun> with (<fun> <arg>)
+<expr> <name> -alpha -- push alpha rename of <expr> using <name>
+<expr> -beta -- push beta reduce of <expr>
+<expr> -eta -- push eta convert of <expr>
+<body> <var> -lambda -- push lambda binding free <var> in <body>
+<fun> <arg> -apply -- push apply of <fun> and <arg>
 <expr1> <expr2> -alpheq -- push \x.\y.x (true) or \x.\y.y (false) if <expr1> and <expr2> are alpha equivalent
--body -- move implicit cursor into body of lambda
--fun -- move implicit cursor into func of apply
--arg -- move implicit cursor into arg of apply
--up -- move implicit cursor up one level
--top -- move implicit cursor to top level
+-body -- move cursor into body of lambda
+-fun -- move cursor into func of apply
+-arg -- move cursor into arg of apply
+-up -- move cursor up one level
+-top -- move cursor to top level
 <expr1> <expr2> -swap -- swap <expr1> and <expr2>
 <expr> -dup -- duplicate <expr>
 <expr1> <expr2> -repl -- replace <expr1> with <expr2> and remove <expr2>

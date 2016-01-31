@@ -103,26 +103,20 @@ int main(int argc, char *argv[])
 		printf("usage: %s <cmds> ...\n", argv[0]);
 		printf("<cmds> is one of:\n");
 		printf("<expr> -- push <expr> onto stack\n");
-
-		printf("<expr> <name> -alpha -- replace <expr> with alpha rename of <expr>\n");
-		printf("<expr> -beta -- replace <expr> with beta reduce of <expr>\n");
-		printf("<expr> -eta -- replace <expr> with eta convert of <expr>\n");
-
-		printf("<body> <var> -lambda -- replace <body> with lambda binding free <var> in <body>\n");
-		printf("<fun> <arg> -apply -- replace <fun> with (<fun> <arg>)\n");
-
+		printf("<expr> <name> -alpha -- push alpha rename of <expr> using <name>\n");
+		printf("<expr> -beta -- push beta reduce of <expr>\n");
+		printf("<expr> -eta -- push eta convert of <expr>\n");
+		printf("<body> <var> -lambda -- push lambda binding free <var> in <body>\n");
+		printf("<fun> <arg> -apply -- push apply of <fun> and <arg>\n");
 		printf("<expr1> <expr2> -alpheq -- push \\x.\\y.x (true) or \\x.\\y.y (false) if <expr1> and <expr2> are alpha equivalent\n");
-
-		printf("-body -- move implicit cursor into body of lambda\n");
-		printf("-fun -- move implicit cursor into func of apply\n");
-		printf("-arg -- move implicit cursor into arg of apply\n");
-		printf("-up -- move implicit cursor up one level\n");
-		printf("-top -- move implicit cursor to top level\n");
-
+		printf("-body -- move cursor into body of lambda\n");
+		printf("-fun -- move cursor into func of apply\n");
+		printf("-arg -- move cursor into arg of apply\n");
+		printf("-up -- move cursor up one level\n");
+		printf("-top -- move cursor to top level\n");
 		printf("<expr1> <expr2> -swap -- swap <expr1> and <expr2>\n");
 		printf("<expr> -dup -- duplicate <expr>\n");
 		printf("<expr1> <expr2> -repl -- replace <expr1> with <expr2> and remove <expr2>\n");
-
 		printf("-print -- print expression stack\n");
 		return 0;
 	}
