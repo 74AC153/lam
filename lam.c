@@ -90,13 +90,6 @@ struct term *termstack_pop(struct termnode **top)
 	return ret;
 }
 
-
-void termstack_swap(struct termnode **top);
-void termstack_roll(struct termnode **top);
-void termstack_dup(struct termnode **top);
-void termstack_drop(struct termnode **top);
-
-
 int main(int argc, char *argv[])
 {
 	if(argc == 1) {
@@ -136,8 +129,7 @@ int main(int argc, char *argv[])
 	}
 	
 	for(int i = 1; i < argc; i++) {
-		if(0) {
-		} else if(strcmp(argv[i], "-alpha") == 0) {
+		if(strcmp(argv[i], "-alpha") == 0) {
 			if(! termstack_get(term_top, 1)) {
 				fprintf(stderr, "stack underflow\n");
 				break;
