@@ -120,7 +120,7 @@ static int lexer_advance(struct lexer *lex)
 			if(fread(&ch, 1, 1, lex->stream) == 0)
 				break;
 			if(isspace(ch)) {
-				fputc(ch, lex->stream);
+				ungetc(ch, lex->stream);
 				break;
 			}
 			if(strchr("().\\", ch)) {
